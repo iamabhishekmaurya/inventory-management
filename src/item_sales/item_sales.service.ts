@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SaleRequest } from 'src/common/dto/request/sale.request';
-import { ItemSales } from 'src/common/entity/itemSales.entity';
+import { Sale } from 'src/common/entity/sale.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class ItemSalesService {
     constructor(
-        @InjectRepository(ItemSales)
-        private readonly itemSalesRepo: Repository<ItemSales>
+        @InjectRepository(Sale)
+        private readonly itemSalesRepo: Repository<Sale>
     ) { }
 
     createSale(saleRequest: SaleRequest) {
-        let sale = new ItemSales();
+        let sale = new Sale();
         sale.itemQuantityId = saleRequest.itemQuantityId;
         sale.inventoryId = saleRequest.inventoryId;
         sale.status = saleRequest.status;

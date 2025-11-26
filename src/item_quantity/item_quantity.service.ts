@@ -17,6 +17,8 @@ export class ItemQuantityService {
         itemQuantity.purchasePrice = itemQuantityRequest?.purchasePrice
         itemQuantity.status = itemQuantityRequest?.status
         itemQuantity.quantity = itemQuantityRequest?.quantity
+        itemQuantity.lotNumber = itemQuantityRequest?.lotNumber
+        itemQuantity.expiryDate = itemQuantityRequest?.expiryDate ? new Date(itemQuantityRequest.expiryDate) : null
         itemQuantity.createdAt = new Date()
         return this.itemQuantityRepo.save(itemQuantity);
 
@@ -34,6 +36,12 @@ export class ItemQuantityService {
         return this.itemQuantityRepo.find({ where: { status: true, itemId: itemId } });
     }
     updateItemQuantity(itemQuantityRequest: QuantityRequest) {
-        return this.itemQuantityRepo.update(itemQuantityRequest.id, { purchasePrice: itemQuantityRequest.purchasePrice, status: itemQuantityRequest.status, quantity: itemQuantityRequest.quantity })
+        return this.itemQuantityRepo.update(itemQuantityRequest.id, {
+            purchasePrice: itemQuantityRequest.purchasePrice,
+            status: itemQuantityRequest.status,
+            quantity: itemQuantityRequest.quantity,
+            lotNumber: itemQuantityRequest.lotNumber,
+            expiryDate: itemQuantityRequest.expiryDate ? new Date(itemQuantityRequest.expiryDate) : null,
+        })
     }
 }

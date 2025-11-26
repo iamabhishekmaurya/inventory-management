@@ -5,7 +5,7 @@ export class BrandRequest {
     id: number
     @IsNotEmpty()
     @IsNumber()
-    itemId: number
+    itemTypeId: number
     @IsNotEmpty()
     @IsString()
     brandName: string

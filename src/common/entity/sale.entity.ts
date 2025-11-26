@@ -19,7 +19,7 @@ export class Sale {
     @Column({ name: "created_by", default: "admin" })
     createdBy: string;
     @Exclude()
-    @Column({ name: "updated_at", default: new Date() })
+    @Column({ name: "updated_at", default: () => 'CURRENT_TIMESTAMP' })
     updatedAt: Date;
     @Exclude()
     @Column({ name: "updated_by", default: "admin" })

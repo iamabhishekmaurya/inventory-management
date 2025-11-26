@@ -1,0 +1,144 @@
+flowchart TD
+
+  %% FRONTEND
+  subgraph FE["Nextjs Frontend inventory-next"]
+    FE_Dashboard["Dashboard /inventory-next"]
+    FE_Inventory["Inventory /inventory"]
+    FE_Suppliers["Suppliers /suppliers"]
+    FE_POs["Purchase Orders /purchase-orders"]
+    FE_Warehouses["Warehouses /warehouses"]
+    FE_Bins["Bins /bins"]
+    FE_Transfers["Transfers /transfers"]
+    FE_Returns["Returns /returns"]
+    FE_CycleCounts["Cycle Counts /cycle-counts"]
+    FE_Adjustments["Adjustments /adjustments"]
+  end
+
+  %% BACKEND NESTJS
+  subgraph BE["NestJS Backend inventory-management"]
+    direction TB
+
+    subgraph ItemMaster["Item Master"]
+      C_ItemType["ItemTypeController /item-type"]
+      S_ItemType["ItemTypeService"]
+      E_ItemType["ItemType table"]
+
+      C_ItemBrand["ItemBrandController /brand"]
+      S_ItemBrand["ItemBrandService"]
+      E_ItemBrand["ItemBrand table"]
+
+      C_Item["ItemController /item"]
+      S_Item["ItemService"]
+      E_Item["Item table"]
+    end
+
+    subgraph Inventory["Inventory and Sales"]
+      C_Quantity["ItemQuantityController /quantity"]
+      S_Quantity["ItemQuantityService"]
+      E_Quantity["ItemQuantity table"]
+
+      C_Sales["ItemSalesController /sales"]
+      S_Sales["ItemSalesService"]
+      E_Sales["Sale table"]
+    end
+
+    subgraph SuppliersPOs["Suppliers and Purchase Orders"]
+      C_Suppliers["SuppliersController /suppliers"]
+      S_Suppliers["SuppliersService"]
+      E_Suppliers["Supplier table"]
+
+      C_POs["PurchaseOrdersController /purchase-orders"]
+      S_POs["PurchaseOrdersService"]
+      E_POs["PurchaseOrder table"]
+    end
+
+    subgraph WarehousesBins["Warehouses and Bins"]
+      C_Warehouses["WarehousesController /warehouses"]
+      S_Warehouses["WarehousesService"]
+      E_Warehouses["Warehouse table"]
+
+      C_Bins["BinsController /bins"]
+      S_Bins["BinsService"]
+      E_Bins["Bin table"]
+    end
+
+    subgraph TransfersReturns["Transfers Returns Adjustments"]
+      C_Transfers["TransfersController /transfers"]
+      S_Transfers["TransfersService"]
+      E_Transfers["Transfer table"]
+
+      C_Returns["ReturnsController /returns"]
+      S_Returns["ReturnsService"]
+      E_Returns["Return table"]
+
+      C_Adjustments["AdjustmentsController /adjustments"]
+      S_Adjustments["AdjustmentsService"]
+      E_Adjustments["Adjustment table"]
+    end
+
+    subgraph CycleCounts["Cycle Counts"]
+      C_CycleCounts["CycleCountsController /cycle-counts"]
+      S_CycleCounts["CycleCountsService"]
+      E_CycleCounts["CycleCount table"]
+    end
+  end
+
+  %% DB
+  DB["MySQL inventory_db"]
+
+  %% FRONTEND -> BACKEND CALLS
+  FE_Dashboard -->|"GET /item-type, /brand, /item, /quantity, /sales"| C_ItemType
+  FE_Dashboard --> C_ItemBrand
+  FE_Dashboard --> C_Item
+  FE_Dashboard --> C_Quantity
+  FE_Dashboard --> C_Sales
+
+  FE_Inventory -->|"GET /item, /quantity"| C_Item
+  FE_Inventory --> C_Quantity
+  FE_Inventory -->|"POST or PUT /quantity"| C_Quantity
+
+  FE_Suppliers -->|"GET POST PATCH /suppliers"| C_Suppliers
+  FE_POs -->|"GET POST PATCH /purchase-orders"| C_POs
+
+  FE_Warehouses -->|"GET POST PATCH /warehouses"| C_Warehouses
+  FE_Bins -->|"GET POST PATCH /bins"| C_Bins
+
+  FE_Transfers -->|"GET POST PATCH /transfers"| C_Transfers
+  FE_Returns -->|"GET POST PATCH /returns"| C_Returns
+  FE_CycleCounts -->|"GET POST PATCH /cycle-counts"| C_CycleCounts
+  FE_Adjustments -->|"GET POST PATCH /adjustments"| C_Adjustments
+
+  %% CONTROLLER -> SERVICE -> TABLE
+  C_ItemType --> S_ItemType --> E_ItemType
+  C_ItemBrand --> S_ItemBrand --> E_ItemBrand
+  C_Item --> S_Item --> E_Item
+
+  C_Quantity --> S_Quantity --> E_Quantity
+  C_Sales --> S_Sales --> E_Sales
+
+  C_Suppliers --> S_Suppliers --> E_Suppliers
+  C_POs --> S_POs --> E_POs
+
+  C_Warehouses --> S_Warehouses --> E_Warehouses
+  C_Bins --> S_Bins --> E_Bins
+
+  C_Transfers --> S_Transfers --> E_Transfers
+  C_Returns --> S_Returns --> E_Returns
+  C_Adjustments --> S_Adjustments --> E_Adjustments
+
+  C_CycleCounts --> S_CycleCounts --> E_CycleCounts
+
+  %% TABLES -> DB
+  E_ItemType --> DB
+  E_ItemBrand --> DB
+  E_Item --> DB
+  E_Quantity --> DB
+  E_Sales --> DB
+  E_Suppliers --> DB
+  E_POs --> DB
+  E_Warehouses --> DB
+  E_Bins --> DB
+  E_Transfers --> DB
+  E_Returns --> DB
+  E_Adjustments --> DB
+  E_CycleCounts --> DB

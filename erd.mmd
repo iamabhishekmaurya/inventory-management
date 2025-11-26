@@ -1,0 +1,20 @@
+erDiagram
+  ItemType ||--o{ ItemBrand : has
+  ItemBrand ||--o{ Item : has
+  Item ||--o{ ItemQuantity : has
+  ItemQuantity ||--o{ Sale : has
+  Item ||--o{ Adjustment : has
+  Item ||--o{ Return : has
+
+  Supplier ||--o{ PurchaseOrder : has
+
+  Warehouse ||--o{ Bin : has
+
+  Warehouse ||--o{ Transfer : fromWarehouse
+  Warehouse ||--o{ Transfer : toWarehouse
+  Bin ||--o{ Transfer : fromBin
+  Bin ||--o{ Transfer : toBin
+  Item ||--o{ Transfer : moves
+
+  Warehouse ||--o{ CycleCount : countedAt
+  Bin ||--o{ CycleCount : countedAt

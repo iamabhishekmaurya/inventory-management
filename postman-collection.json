@@ -1,0 +1,476 @@
+{
+  "info": {
+    "name": "Inventory Management APIs",
+    "_postman_id": "c1f3c2a2-0000-0000-0000-000000000001",
+    "description": "Postman collection for inventory-management NestJS backend with dummy data.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Item Types",
+      "item": [
+        {
+          "name": "Get Item Types",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/item-type",
+              "host": ["{{baseUrl}}"],
+              "path": ["item-type"]
+            }
+          }
+        },
+        {
+          "name": "Create Item Type",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"Electronics\",\n  \"status\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/item-type",
+              "host": ["{{baseUrl}}"],
+              "path": ["item-type"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Item Brands",
+      "item": [
+        {
+          "name": "Get Item Brands",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/brand",
+              "host": ["{{baseUrl}}"],
+              "path": ["brand"]
+            }
+          }
+        },
+        {
+          "name": "Create Item Brand",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"brandName\": \"Apple\",\n  \"itemTypeId\": 1,\n  \"status\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/brand",
+              "host": ["{{baseUrl}}"],
+              "path": ["brand"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Items",
+      "item": [
+        {
+          "name": "Get Items",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/item",
+              "host": ["{{baseUrl}}"],
+              "path": ["item"]
+            }
+          }
+        },
+        {
+          "name": "Create Item",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itemName\": \"iPhone 15\",\n  \"itemBrandId\": 1,\n  \"status\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/item",
+              "host": ["{{baseUrl}}"],
+              "path": ["item"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Item Quantities (Inventory)",
+      "item": [
+        {
+          "name": "Get All Quantities",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/quantity",
+              "host": ["{{baseUrl}}"],
+              "path": ["quantity"]
+            }
+          }
+        },
+        {
+          "name": "Create Quantity",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itemId\": 1,\n  \"quantity\": 100,\n  \"inventoryId\": 1001,\n  \"purchasePrice\": 500.0,\n  \"lotNumber\": \"LOT-2025-01\",\n  \"expiryDate\": \"2026-12-31\",\n  \"status\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/quantity",
+              "host": ["{{baseUrl}}"],
+              "path": ["quantity"]
+            }
+          }
+        },
+        {
+          "name": "Update Quantity",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"itemId\": 1,\n  \"quantity\": 90,\n  \"inventoryId\": 1001,\n  \"purchasePrice\": 500.0,\n  \"lotNumber\": \"LOT-2025-01\",\n  \"expiryDate\": \"2026-12-31\",\n  \"status\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/quantity",
+              "host": ["{{baseUrl}}"],
+              "path": ["quantity"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sales",
+      "item": [
+        {
+          "name": "Get All Sales",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/sales",
+              "host": ["{{baseUrl}}"],
+              "path": ["sales"]
+            }
+          }
+        },
+        {
+          "name": "Create Sale",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itemQuantityId\": 1,\n  \"inventoryId\": 1001,\n  \"salePrice\": 700.0,\n  \"status\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/sales",
+              "host": ["{{baseUrl}}"],
+              "path": ["sales"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Suppliers",
+      "item": [
+        {
+          "name": "Get Suppliers",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/suppliers",
+              "host": ["{{baseUrl}}"],
+              "path": ["suppliers"]
+            }
+          }
+        },
+        {
+          "name": "Create Supplier",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Default Supplier\",\n  \"email\": \"supplier@example.com\",\n  \"phone\": \"+91-9876543210\",\n  \"leadTimeDays\": 7,\n  \"terms\": \"Net 30\",\n  \"rating\": 4.5,\n  \"status\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/suppliers",
+              "host": ["{{baseUrl}}"],
+              "path": ["suppliers"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Purchase Orders",
+      "item": [
+        {
+          "name": "Get Purchase Orders",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/purchase-orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["purchase-orders"]
+            }
+          }
+        },
+        {
+          "name": "Create Purchase Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"supplierId\": 1,\n  \"status\": \"Draft\",\n  \"expectedDate\": \"2025-12-01\",\n  \"notes\": \"Initial PO for new stock\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/purchase-orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["purchase-orders"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Warehouses",
+      "item": [
+        {
+          "name": "Get Warehouses",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/warehouses",
+              "host": ["{{baseUrl}}"],
+              "path": ["warehouses"]
+            }
+          }
+        },
+        {
+          "name": "Create Warehouse",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Main WH\",\n  \"code\": \"WH-001\",\n  \"status\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/warehouses",
+              "host": ["{{baseUrl}}"],
+              "path": ["warehouses"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bins",
+      "item": [
+        {
+          "name": "Get Bins",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/bins",
+              "host": ["{{baseUrl}}"],
+              "path": ["bins"]
+            }
+          }
+        },
+        {
+          "name": "Create Bin",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"warehouseId\": 1,\n  \"code\": \"BIN-A1\",\n  \"zone\": \"A\",\n  \"status\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bins",
+              "host": ["{{baseUrl}}"],
+              "path": ["bins"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Transfers",
+      "item": [
+        {
+          "name": "Get Transfers",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/transfers",
+              "host": ["{{baseUrl}}"],
+              "path": ["transfers"]
+            }
+          }
+        },
+        {
+          "name": "Create Transfer",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fromWarehouseId\": 1,\n  \"toWarehouseId\": 1,\n  \"fromBinId\": 1,\n  \"toBinId\": 1,\n  \"itemId\": 1,\n  \"quantity\": 10,\n  \"notes\": \"Move stock from BIN-A1 to BIN-A2\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/transfers",
+              "host": ["{{baseUrl}}"],
+              "path": ["transfers"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Returns",
+      "item": [
+        {
+          "name": "Get Returns",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/returns",
+              "host": ["{{baseUrl}}"],
+              "path": ["returns"]
+            }
+          }
+        },
+        {
+          "name": "Create Return",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"kind\": \"Customer\",\n  \"itemId\": 1,\n  \"quantity\": 2,\n  \"reason\": \"Customer return - defective\",\n  \"status\": \"Requested\",\n  \"notes\": \"Box damaged\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/returns",
+              "host": ["{{baseUrl}}"],
+              "path": ["returns"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cycle Counts",
+      "item": [
+        {
+          "name": "Get Cycle Counts",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/cycle-counts",
+              "host": ["{{baseUrl}}"],
+              "path": ["cycle-counts"]
+            }
+          }
+        },
+        {
+          "name": "Create Cycle Count",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"warehouseId\": 1,\n  \"binId\": 1,\n  \"scheduledDate\": \"2025-12-10\",\n  \"status\": \"Planned\",\n  \"variance\": 0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cycle-counts",
+              "host": ["{{baseUrl}}"],
+              "path": ["cycle-counts"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Adjustments",
+      "item": [
+        {
+          "name": "Get Adjustments",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/adjustments",
+              "host": ["{{baseUrl}}"],
+              "path": ["adjustments"]
+            }
+          }
+        },
+        {
+          "name": "Create Adjustment",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itemId\": 1,\n  \"quantity\": -5,\n  \"reason\": \"Damaged during handling\",\n  \"approved\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/adjustments",
+              "host": ["{{baseUrl}}"],
+              "path": ["adjustments"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ]
+}

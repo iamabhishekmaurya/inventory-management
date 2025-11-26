@@ -8,6 +8,14 @@ import { ItemBrandModule } from './item_brand/item_brand.module';
 import { ItemSalesModule } from './item_sales/item_sales.module';
 import { ItemTypeModule } from './item_type/item_type.module';
 import { ItemQuantityModule } from './item_quantity/item_quantity.module';
+import { SuppliersModule } from './suppliers/suppliers.module';
+import { PurchaseOrdersModule } from './purchase-orders/purchase-orders.module';
+import { WarehousesModule } from './warehouses/warehouses.module';
+import { BinsModule } from './bins/bins.module';
+import { TransfersModule } from './transfers/transfers.module';
+import { ReturnsModule } from './returns/returns.module';
+import { CycleCountsModule } from './cycle-counts/cycle-counts.module';
+import { AdjustmentsModule } from './adjustments/adjustments.module';
 
 @Module({
   imports: [
@@ -18,6 +26,14 @@ import { ItemQuantityModule } from './item_quantity/item_quantity.module';
     ItemModule,
     ItemSalesModule,
     ItemQuantityModule,
+    SuppliersModule,
+    PurchaseOrdersModule,
+    WarehousesModule,
+    BinsModule,
+    TransfersModule,
+    ReturnsModule,
+    CycleCountsModule,
+    AdjustmentsModule,
   ],
   controllers: [AppController],
   providers: [],

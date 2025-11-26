@@ -1,4 +1,4 @@
-import { IsBoolean, IsDecimal, IsNotEmpty, IsNumber } from "class-validator";
+import { IsBoolean, IsDateString, IsDecimal, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class QuantityRequest {
     @IsNumber()
@@ -13,10 +13,17 @@ export class QuantityRequest {
     quantity: number;
     @IsNumber()
     quantityRemains: number;
+
     @IsNotEmpty()
     @IsNumber()
     inventoryId: number;
     @IsNotEmpty()
     @IsDecimal()
     purchasePrice: number;
+    @IsOptional()
+    @IsString()
+    lotNumber?: string;
+    @IsOptional()
+    @IsDateString()
+    expiryDate?: string;
 }
