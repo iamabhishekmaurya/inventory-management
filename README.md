@@ -1,5 +1,6 @@
 # Inventory Management System
 
+A comprehensive NestJS-based backend API for managing inventory operations including item management, suppliers, purchase orders, warehouses, transfers, returns, cycle counts, and adjustments.
 
 ## 📋 Table of Contents
 
