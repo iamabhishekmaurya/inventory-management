@@ -1,98 +1,418 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Inventory Management System
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 📋 Table of Contents
 
-## Description
+- [📖 Description](#-description)
+- [✨ Features](#-features)
+- [🏗️ Architecture](#️-architecture)
+- [🚀 Getting Started](#-getting-started)
+- [📁 Project Structure](#-project-structure)
+- [🔧 Configuration](#-configuration)
+- [📚 API Documentation](#-api-documentation)
+- [🧪 Testing](#-testing)
+- [🚀 Deployment](#-deployment)
+- [📊 Database Schema](#-database-schema)
+- [🔗 API Flow](#-api-flow)
+- [🛠️ Development](#️-development)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 📖 Description
 
-## Project setup
+This is a robust **Inventory Management System** built with **NestJS** framework and **TypeScript**. The system provides a comprehensive backend API for managing inventory operations including item management, suppliers, purchase orders, warehouses, transfers, returns, cycle counts, and adjustments.
 
-```bash
-$ npm install
+### Key Business Domains:
+- **Item Master Management**: Categories, brands, and product catalog
+- **Inventory Operations**: Stock tracking, quantity management, and sales
+- **Supply Chain**: Supplier management and purchase order processing
+- **Warehouse Management**: Multi-warehouse support with bin organization
+- **Inventory Movement**: Transfers, returns, and adjustments
+- **Cycle Counting**: Regular inventory verification processes
+
+## ✨ Features
+
+### 🏢 Core Features
+- **Item Management**: Create and manage products with types, brands, and detailed specifications
+- **Inventory Tracking**: Real-time stock quantity monitoring and management
+- **Supplier Management**: Complete supplier lifecycle management
+- **Purchase Orders**: Automated purchase order creation and tracking
+- **Multi-Warehouse Support**: Manage inventory across multiple warehouse locations
+- **Bin Management**: Granular storage location organization
+- **Inventory Transfers**: Movement tracking between warehouses and bins
+- **Returns Management**: Handle customer returns and supplier returns
+- **Cycle Counting**: Scheduled inventory verification and reconciliation
+- **Adjustments**: Manual inventory corrections and adjustments
+
+### 🛠️ Technical Features
+- **RESTful API**: Clean, well-documented REST endpoints
+- **TypeScript**: Full type safety and enhanced developer experience
+- **Database Integration**: MySQL with TypeORM for robust data persistence
+- **Validation**: Comprehensive input validation with class-validator
+- **Logging**: Structured logging with Winston
+- **Modular Architecture**: Clean separation of concerns with NestJS modules
+- **Error Handling**: Centralized error handling and response formatting
+- **Testing**: Unit and integration test support with Jest
+
+## 🏗️ Architecture
+
+The system follows a **modular monolith architecture** with clear separation of concerns:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    Frontend (Next.js)                      │
+│                   inventory-next                           │
+└─────────────────────┬───────────────────────────────────────┘
+                      │ HTTP/REST API
+┌─────────────────────▼───────────────────────────────────────┐
+│                Backend (NestJS)                            │
+│              inventory-management                           │
+│  ┌─────────────┬─────────────┬─────────────┬─────────────┐  │
+│  │   Item      │  Inventory  │  Suppliers  │  Warehouse  │  │
+│  │   Master    │  & Sales    │   & POs     │   & Bins    │  │
+│  └─────────────┴─────────────┴─────────────┴─────────────┘  │
+│  ┌─────────────┬─────────────┬─────────────┬─────────────┐  │
+│  │  Transfers  │   Returns   │  Cycle      │ Adjustments │  │
+│  │             │             │  Counts     │             │  │
+│  └─────────────┴─────────────┴─────────────┴─────────────┘  │
+└─────────────────────┬───────────────────────────────────────┘
+                      │ TypeORM
+┌─────────────────────▼───────────────────────────────────────┐
+│                    Database (MySQL)                         │
+│                   inventory_db                              │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-## Compile and run the project
+### Module Structure
+Each business domain is organized into a dedicated module containing:
+- **Controller**: HTTP request handling and routing
+- **Service**: Business logic and data processing
+- **Entity**: Database model and relationships
+- **DTO**: Data transfer objects for validation
 
-```bash
-# development
-$ npm run start
+## 🚀 Getting Started
 
-# watch mode
-$ npm run start:dev
+### Prerequisites
+- **Node.js** (v18 or higher)
+- **MySQL** (v8.0 or higher)
+- **npm** or **yarn** package manager
 
-# production mode
-$ npm run start:prod
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd inventory-management
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Database Setup**
+   - Create MySQL database named `inventory_db`
+   - Update database configuration in `src/common/config/db.config.ts`
+   ```typescript
+   export const inventoryDb: TypeOrmModuleOptions = {
+     type: 'mysql',
+     host: 'localhost',
+     port: 3306,
+     username: 'your_username',
+     password: 'your_password',
+     database: 'inventory_db',
+     entities: [__dirname + '/**/*.entity{.ts,.js}'],
+     synchronize: true, // Set to false in production
+   };
+   ```
+
+4. **Environment Variables**
+   Create `.env` file in the root directory:
+   ```env
+   DB_HOST=localhost
+   DB_PORT=3306
+   DB_USERNAME=your_username
+   DB_PASSWORD=your_password
+   DB_DATABASE=inventory_db
+   PORT=3000
+   NODE_ENV=development
+   ```
+
+## 📁 Project Structure
+
+```
+src/
+├── app.controller.ts              # Application root controller
+├── app.module.ts                  # Main application module
+├── main.ts                        # Application entry point
+├── common/                        # Shared utilities and configurations
+│   ├── config/                    # Configuration files
+│   │   └── db.config.ts          # Database configuration
+│   ├── decorators/                # Custom decorators
+│   ├── dto/                       # Shared DTOs
+│   ├── entities/                  # Shared entities
+│   ├── exceptions/                # Custom exceptions
+│   ├── filters/                   # Exception filters
+│   ├── guards/                    # Auth guards
+│   ├── interceptors/              # Request/response interceptors
+│   ├── middleware/                # Custom middleware
+│   ├── pipes/                     # Custom pipes
+│   └── utils/                     # Utility functions
+├── create/                        # Database seeding module
+├── item/                          # Item management module
+├── item_brand/                    # Item brand management
+├── item_sales/                    # Sales tracking
+├── item_type/                     # Item type management
+├── item_quantity/                 # Quantity tracking
+├── suppliers/                     # Supplier management
+├── purchase-orders/               # Purchase order management
+├── warehouses/                    # Warehouse management
+├── bins/                          # Bin management
+├── transfers/                     # Inventory transfers
+├── returns/                       # Returns management
+├── cycle-counts/                  # Cycle counting
+└── adjustments/                   # Inventory adjustments
 ```
 
-## Run tests
+## 🔧 Configuration
 
-```bash
-# unit tests
-$ npm run test
+### Database Configuration
+The system uses **TypeORM** with MySQL database. Configuration is located in `src/common/config/db.config.ts`.
 
-# e2e tests
-$ npm run test:e2e
+### Logging Configuration
+Winston logger is configured for structured logging with:
+- Console output for development
+- File rotation for production
+- Different log levels (error, warn, info, debug)
 
-# test coverage
-$ npm run test:cov
+### Validation
+Input validation using **class-validator** and **class-transformer**:
+- Automatic DTO validation
+- Request/response transformation
+- Custom validation decorators
+
+## 📚 API Documentation
+
+### Base URL
+```
+http://localhost:3000
 ```
 
-## Deployment
+### Authentication
+Currently, the API does not implement authentication. This can be added using JWT or other auth strategies.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+### Main Endpoints
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+#### Item Management
+- `GET /item-type` - List all item types
+- `POST /item-type` - Create new item type
+- `GET /brand` - List all item brands
+- `POST /brand` - Create new item brand
+- `GET /item` - List all items
+- `POST /item` - Create new item
+
+#### Inventory Operations
+- `GET /quantity` - Get item quantities
+- `POST /quantity` - Update item quantity
+- `GET /sales` - Get sales records
+- `POST /sales` - Create sales record
+
+#### Supplier Management
+- `GET /suppliers` - List all suppliers
+- `POST /suppliers` - Create new supplier
+- `PATCH /suppliers/:id` - Update supplier
+
+#### Purchase Orders
+- `GET /purchase-orders` - List purchase orders
+- `POST /purchase-orders` - Create purchase order
+- `PATCH /purchase-orders/:id` - Update purchase order
+
+#### Warehouse Management
+- `GET /warehouses` - List warehouses
+- `POST /warehouses` - Create warehouse
+- `GET /bins` - List bins
+- `POST /bins` - Create bin
+
+#### Inventory Movements
+- `GET /transfers` - List transfers
+- `POST /transfers` - Create transfer
+- `GET /returns` - List returns
+- `POST /returns` - Create return
+
+#### Cycle Counting & Adjustments
+- `GET /cycle-counts` - List cycle counts
+- `POST /cycle-counts` - Create cycle count
+- `GET /adjustments` - List adjustments
+- `POST /adjustments` - Create adjustment
+
+### Postman Collection
+A comprehensive Postman collection is available in `postman-collection.json` with all API endpoints and sample requests.
+
+## 🧪 Testing
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+# Run unit tests
+npm run test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run test coverage
+npm run test:cov
+
+# Run e2e tests
+npm run test:e2e
+
+# Run tests with debugging
+npm run test:debug
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### Test Structure
+- Unit tests for services and controllers
+- Integration tests for API endpoints
+- Database tests with test database
+- Coverage reports generated in `coverage/` directory
 
-## Resources
+## 🚀 Deployment
 
-Check out a few resources that may come in handy when working with NestJS:
+### Development
+```bash
+# Development mode with hot reload
+npm run start:dev
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+# Development with debugging
+npm run start:debug
+```
 
-## Support
+### Production
+```bash
+# Build the application
+npm run build
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+# Run in production mode
+npm run start:prod
+```
 
-## Stay in touch
+### Environment Setup
+1. Set `NODE_ENV=production` in production
+2. Disable database synchronization: `synchronize: false`
+3. Use environment variables for sensitive configuration
+4. Implement proper logging and monitoring
+5. Set up reverse proxy (nginx) for production
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Docker Deployment
+```dockerfile
+# Dockerfile example
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "run", "start:prod"]
+```
 
-## License
+## 📊 Database Schema
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### Core Entities
+
+#### Item Master
+- **ItemType**: Product categories (Electronics, Clothing, etc.)
+- **ItemBrand**: Product brands (Apple, Samsung, etc.)
+- **Item**: Product catalog with specifications
+
+#### Inventory
+- **ItemQuantity**: Stock levels by warehouse/bin
+- **Sale**: Sales transactions and records
+
+#### Supply Chain
+- **Supplier**: Supplier information and contacts
+- **PurchaseOrder**: Purchase order management
+
+#### Warehouse Management
+- **Warehouse**: Warehouse locations and details
+- **Bin**: Storage location within warehouses
+
+#### Operations
+- **Transfer**: Inventory movement records
+- **Return**: Return processing (customer/supplier)
+- **CycleCount**: Inventory verification records
+- **Adjustment**: Manual inventory corrections
+
+### Relationships
+- Items belong to Types and Brands
+- Quantities are tracked per Item, Warehouse, and Bin
+- Purchase Orders link to Suppliers and Items
+- Transfers track movement between locations
+
+## 🔗 API Flow
+
+```mermaid
+flowchart TD
+    FE[Frontend Next.js] --> BE[NestJS Backend]
+    BE --> DB[(MySQL Database)]
+    
+    FE --> |HTTP Requests| API[REST API Endpoints]
+    API --> Controller[Controllers]
+    Controller --> Service[Services]
+    Service --> Repository[Repositories]
+    Repository --> DB
+    
+    subgraph Modules
+        ItemMaster[Item Master]
+        Inventory[Inventory & Sales]
+        SuppliersPOs[Suppliers & POs]
+        WarehousesBins[Warehouses & Bins]
+        Operations[Operations]
+    end
+    
+    Service --> Modules
+```
+
+## 🛠️ Development
+
+### Code Style
+- **ESLint** for code linting
+- **Prettier** for code formatting
+- **TypeScript** strict mode enabled
+- Consistent naming conventions
+
+### Scripts
+```bash
+# Format code
+npm run format
+
+# Lint and fix code
+npm run lint
+
+# Build application
+npm run build
+
+# Development server
+npm run start:dev
+```
+
+### Adding New Features
+1. Create new module in appropriate domain
+2. Define entity with TypeORM decorators
+3. Create service with business logic
+4. Implement controller with REST endpoints
+5. Add DTOs for validation
+6. Write unit and integration tests
+7. Update API documentation
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Development Guidelines
+- Follow existing code style and patterns
+- Write meaningful commit messages
+- Add tests for new features
+- Update documentation
+- Ensure all tests pass before PR
